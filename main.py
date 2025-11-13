@@ -1,5 +1,6 @@
 from library_books import library_books
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
+
 
 # -------- Level 1 --------
 # TODO: Create a function to view all books that are currently available
@@ -11,7 +12,7 @@ def display_available_books():
         if available_books[availablity]["available"] == False: #Checks if the book is not available.
             available_books.pop(availablity) #Gets rid of the unavailable books, leaving only the available books in the library.
     
-    for books in available_books:
+    for books in available_books: #Going to print out the copied library that consist of available books. 
         print("--------------------") #Dividers between each book when print.
         for key, value in books.items():
             if key == "id" or key == "title" or key == "author": #Only printing out the id, title, and author of each book.
@@ -21,7 +22,17 @@ def display_available_books():
 # TODO: Create a function to search books by author OR genre
 # Search should be case-insensitive
 # Return a list of matching books
-
+def search_book(searching):
+    search = str(searching)
+    list_of_books = "" #Empty string: what we are going to return.
+    for keyterm, books in enumerate(library_books):
+        book = str(library_books[keyterm]["title"]) 
+        author = str(library_books[keyterm]["author"])
+        genre = str(library_books[keyterm]["genre"])
+        if author.lower().__contains__(search.lower()) or genre.lower().__contains__(search.lower()): #check to see if search matches with any keyterms in author or genre.
+            list_of_books += book+"\n" #Add the book title to a string list.
+    
+    return list_of_books
 
 # -------- Level 3 --------
 # TODO: Create a function to checkout a book by ID
@@ -31,6 +42,7 @@ def display_available_books():
 #   - Increment the checkouts counter
 # If it is not available:
 #   - Print a message saying it's already checked out
+
 
 
 # -------- Level 4 --------
@@ -55,5 +67,8 @@ def display_available_books():
 
 if __name__ == "__main__":
     # You can use this space to test your functions
-    display_available_books()
+    #display_available_books()
+    keyterm = input("Search Book by Author or Genre: ")
+    print(search_book(keyterm))
+
     pass
