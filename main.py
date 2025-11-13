@@ -4,7 +4,18 @@ from datetime import datetime, timedelta
 # -------- Level 1 --------
 # TODO: Create a function to view all books that are currently available
 # Output should include book ID, title, and author
-
+def display_available_books():
+    available_books = library_books #Making another copy of the same library so we don't affect the original.
+    
+    for availablity, books in enumerate(available_books):
+        if available_books[availablity]["available"] == False: #Checks if the book is not available.
+            available_books.pop(availablity) #Gets rid of the unavailable books, leaving only the available books in the library.
+    
+    for books in available_books:
+        print("--------------------") #Dividers between each book when print.
+        for key, value in books.items():
+            if key == "id" or key == "title" or key == "author": #Only printing out the id, title, and author of each book.
+                print(f'{key}: {value}')
 
 # -------- Level 2 --------
 # TODO: Create a function to search books by author OR genre
@@ -44,4 +55,5 @@ from datetime import datetime, timedelta
 
 if __name__ == "__main__":
     # You can use this space to test your functions
+    display_available_books()
     pass
