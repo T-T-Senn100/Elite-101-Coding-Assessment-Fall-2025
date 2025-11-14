@@ -47,19 +47,19 @@ def checkout(id_for_book):
     for book_id, books in enumerate(library_books):
         check_book = str(library_books[book_id]["id"])
         is_book_available = library_books[book_id]["available"]
-        if check_book == id:
-            if is_book_available == True:
-                library_books[book_id]["available"] = False
+        if check_book == id: #Searching for the book by id.
+            if is_book_available == True: #Seeing if the book is available or not.
+                library_books[book_id]["available"] = False #Book is now checked out.
                 today = date.today()
-                library_books[book_id]["due_date"] = str(today + timedelta(weeks=2))
-                library_books[book_id]["checkouts"] += 1
+                library_books[book_id]["due_date"] = str(today + timedelta(weeks=2)) #Setting due date 2 weeks from today.
+                library_books[book_id]["checkouts"] += 1 #Incrementing number of times book has been checked out by 1.
                 book_name = library_books[book_id]["title"]
                 due_date = library_books[book_id]["due_date"]
                 print("The have checked out the book: \""+book_name+". You have until "+due_date+ " to return the book. Hope you enjoy the book!")
-                break
+                break #No longer need to run through the rest of the loop after finding the book.
             else:
-                print("The book you are looking for seems to have already been checked out.")
-                break
+                print("The book you are looking for seems to have already been checked out.") #If book user is looking for not available.
+                break #No longer need to run through the rest of the loop after finding the book.
         
 
 
