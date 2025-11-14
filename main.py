@@ -10,7 +10,7 @@ def display_available_books():
     
     for availablity, books in enumerate(available_books):
         if available_books[availablity]["available"] == False: #Checks if the book is not available.
-            available_books.pop(availablity) #Gets rid of the unavailable books, leaving only the available books in the library.
+            available_books.pop(availablity) #Gets rid of the unavailable books, leaving only the available books in the copied library.
     
     for books in available_books: #Going to print out the copied library that consist of available books. 
         print("--------------------") #Dividers between each book when print.
@@ -42,7 +42,25 @@ def search_book(searching):
 #   - Increment the checkouts counter
 # If it is not available:
 #   - Print a message saying it's already checked out
-
+def checkout(id_for_book):
+    id = str(id_for_book)
+    for book_id, books in enumerate(library_books):
+        check_book = str(library_books[book_id]["id"])
+        is_book_available = library_books[book_id]["available"]
+        if check_book == id:
+            if is_book_available == True:
+                library_books[book_id]["available"] = False
+                today = date.today()
+                library_books[book_id]["due_date"] = str(today + timedelta(weeks=2))
+                library_books[book_id]["checkouts"] += 1
+                book_name = library_books[book_id]["title"]
+                due_date = library_books[book_id]["due_date"]
+                print("The have checked out the book: \""+book_name+". You have until "+due_date+ " to return the book. Hope you enjoy the book!")
+                break
+            else:
+                print("The book you are looking for seems to have already been checked out.")
+                break
+        
 
 
 # -------- Level 4 --------
@@ -68,7 +86,9 @@ def search_book(searching):
 if __name__ == "__main__":
     # You can use this space to test your functions
     #display_available_books()
-    keyterm = input("Search Book by Author or Genre: ")
-    print(search_book(keyterm))
+    #keyterm = input("Search Book by Author or Genre: ")
+    #print(search_book(keyterm))
+    checking_out = str(input("What book would you like to checkout(input id)?: "))
+    checkout(checking_out)
 
     pass
